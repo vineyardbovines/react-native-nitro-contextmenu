@@ -1,0 +1,31 @@
+{
+  "git": {
+    "requireBranch": "main",
+    "commit": true,
+    "commitMessage": "chore: release ${version}",
+    "tag": true,
+    "tagName": "${version}",
+    "push": false,
+    "changelog": "bunx auto-changelog --stdout --template https://raw.githubusercontent.com/vineyardbovines/calver/refs/heads/main/template/changelog-compact-latest.hbs"
+  },
+  "github": {
+    "release": true,
+    "releaseName": "${version}",
+    "changelog": "bunx auto-changelog --stdout --template https://raw.githubusercontent.com/vineyardbovines/calver/refs/heads/main/template/changelog-compact-latest.hbs"
+  },
+  "npm": {
+    "publish": true,
+    "ignoreVersion": true
+  },
+  "hooks": {
+    "after:bump": [
+      "bunx auto-changelog --package --template https://raw.githubusercontent.com/vineyardbovines/calver/refs/heads/main/template/changelog-full.hbs",
+      "git add CHANGELOG.md package.json"
+    ]
+  },
+  "plugins": {
+    "@vineyardbovines/calver/plugin": {
+      "cycle": "month"
+    }
+  }
+}

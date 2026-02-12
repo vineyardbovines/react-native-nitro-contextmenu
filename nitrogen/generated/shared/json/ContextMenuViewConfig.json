@@ -1,0 +1,15 @@
+{
+  "uiViewClassName": "ContextMenuView",
+  "supportsRawText": false,
+  "bubblingEventTypes": {},
+  "directEventTypes": {},
+  "validAttributes": {
+    "menuConfigJson": true,
+    "previewConfigJson": true,
+    "onPressAction": true,
+    "onMenuWillShow": true,
+    "onMenuWillHide": true,
+    "onPreviewPress": true,
+    "hybridRef": true
+  }
+}

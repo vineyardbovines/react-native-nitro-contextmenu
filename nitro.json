@@ -1,0 +1,18 @@
+{
+  "$schema": "https://nitro.margelo.com/nitro.schema.json",
+  "cxxNamespace": ["nitroplatformcomponents"],
+  "ios": {
+    "iosModuleName": "NitroPlatformComponents"
+  },
+  "android": {
+    "androidNamespace": ["nitroplatformcomponents"],
+    "androidCxxLibName": "NitroPlatformComponents"
+  },
+  "autolinking": {
+    "ContextMenuView": {
+      "swift": "HybridContextMenuView",
+      "kotlin": "HybridContextMenuView"
+    }
+  },
+  "ignorePaths": ["**/node_modules"]
+}

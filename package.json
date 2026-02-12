@@ -1,0 +1,93 @@
+{
+  "name": "react-native-nitro-contextmenu",
+  "version": "2026.2.1",
+  "description": "Native context menus built with Nitro Modules",
+  "main": "lib/index",
+  "module": "lib/index",
+  "types": "lib/index.d.ts",
+  "react-native": "src/index",
+  "source": "src/index",
+  "files": [
+    "src",
+    "react-native.config.js",
+    "lib",
+    "nitrogen",
+    "android/build.gradle",
+    "android/gradle.properties",
+    "android/fix-prefab.gradle",
+    "android/CMakeLists.txt",
+    "android/src",
+    "ios/**/*.h",
+    "ios/**/*.m",
+    "ios/**/*.mm",
+    "ios/**/*.cpp",
+    "ios/**/*.swift",
+    "app.plugin.js",
+    "nitro.json",
+    "*.podspec",
+    "README.md"
+  ],
+  "scripts": {
+    "clean": "git clean -dfX",
+    "format": "bunx biome check --write --no-errors-on-unmatched .",
+    "typecheck": "tsc --noEmit",
+    "build": "bun run typecheck && bob build",
+    "release": "semantic-release",
+    "codegen": "nitrogen --logLevel=\"debug\" && bun run build"
+  },
+  "keywords": [
+    "react-native",
+    "nitro",
+    "contextmenu",
+    "context-menu",
+    "popup-menu",
+    "ios",
+    "android"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vineyardbovines/react-native-nitro-contextmenu.git"
+  },
+  "author": "Spencer Pope <spencer@thepope.dev>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vineyardbovines/react-native-nitro-contextmenu/issues"
+  },
+  "homepage": "https://github.com/vineyardbovines/react-native-nitro-contextmenu#readme",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.3.15",
+    "@commitlint/config-conventional": "^20.4.1",
+    "@types/react": "^19.1.03",
+    "@vineyardbovines/calver": "^2026.1.1",
+    "commitlint": "^20.4.1",
+    "lefthook": "^2.1.1",
+    "nitrogen": "*",
+    "react": "19.2.0",
+    "react-native": "0.83.0",
+    "react-native-builder-bob": "^0.40.18",
+    "react-native-nitro-modules": "*",
+    "typescript": "^5.8.3"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*",
+    "react-native-nitro-modules": "*"
+  },
+  "react-native-builder-bob": {
+    "source": "src",
+    "output": "lib",
+    "targets": [
+      "commonjs",
+      "module",
+      [
+        "typescript",
+        {
+          "project": "tsconfig.json"
+        }
+      ]
+    ]
+  }
+}
