@@ -35,7 +35,7 @@
     "format": "bunx biome check --write --no-errors-on-unmatched .",
     "typecheck": "tsc --noEmit",
     "build": "bun run typecheck && bob build",
-    "release": "semantic-release",
+    "release": "bunx release-it",
     "codegen": "nitrogen --logLevel=\"debug\" && bun run build"
   },
   "keywords": [
