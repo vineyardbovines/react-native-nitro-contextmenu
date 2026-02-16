@@ -7,7 +7,7 @@
 
 #include "HybridContextMenuViewSpec.hpp"
 
-namespace margelo::nitro::nitroplatformcomponents {
+namespace margelo::nitro::nitrocontextmenu {
 
   void HybridContextMenuViewSpec::loadHybridMethods() {
     // load base methods/properties
@@ -29,4 +29,4 @@ namespace margelo::nitro::nitroplatformcomponents {
     });
   }
 
-} // namespace margelo::nitro::nitroplatformcomponents
+} // namespace margelo::nitro::nitrocontextmenu

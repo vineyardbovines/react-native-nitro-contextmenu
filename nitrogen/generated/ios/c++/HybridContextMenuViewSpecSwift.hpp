@@ -10,16 +10,16 @@
 #include "HybridContextMenuViewSpec.hpp"
 
 // Forward declaration of `HybridContextMenuViewSpec_cxx` to properly resolve imports.
-namespace NitroPlatformComponents { class HybridContextMenuViewSpec_cxx; }
+namespace NitroContextMenu { class HybridContextMenuViewSpec_cxx; }
 
 
 
 #include <string>
 #include <functional>
 
-#include "NitroPlatformComponents-Swift-Cxx-Umbrella.hpp"
+#include "NitroContextMenu-Swift-Cxx-Umbrella.hpp"
 
-namespace margelo::nitro::nitroplatformcomponents {
+namespace margelo::nitro::nitrocontextmenu {
 
   /**
    * The C++ part of HybridContextMenuViewSpec_cxx.swift.
@@ -34,13 +34,13 @@ namespace margelo::nitro::nitroplatformcomponents {
   class HybridContextMenuViewSpecSwift: public virtual HybridContextMenuViewSpec {
   public:
     // Constructor from a Swift instance
-    explicit HybridContextMenuViewSpecSwift(const NitroPlatformComponents::HybridContextMenuViewSpec_cxx& swiftPart):
+    explicit HybridContextMenuViewSpecSwift(const NitroContextMenu::HybridContextMenuViewSpec_cxx& swiftPart):
       HybridObject(HybridContextMenuViewSpec::TAG),
       _swiftPart(swiftPart) { }
 
   public:
     // Get the Swift part
-    inline NitroPlatformComponents::HybridContextMenuViewSpec_cxx& getSwiftPart() noexcept {
+    inline NitroContextMenu::HybridContextMenuViewSpec_cxx& getSwiftPart() noexcept {
       return _swiftPart;
     }
 
@@ -111,7 +111,7 @@ namespace margelo::nitro::nitroplatformcomponents {
     
 
   private:
-    NitroPlatformComponents::HybridContextMenuViewSpec_cxx _swiftPart;
+    NitroContextMenu::HybridContextMenuViewSpec_cxx _swiftPart;
   };
 
-} // namespace margelo::nitro::nitroplatformcomponents
+} // namespace margelo::nitro::nitrocontextmenu

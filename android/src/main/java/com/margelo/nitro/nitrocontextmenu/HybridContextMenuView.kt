@@ -1,4 +1,4 @@
-package com.margelo.nitro.nitroplatformcomponents
+package com.margelo.nitro.nitrocontextmenu
 
 import android.content.Context
 import android.content.Intent
@@ -78,21 +78,22 @@ class HybridContextMenuView(
     override var onPreviewPress: () -> Unit = {}
 
     // -- Internal state --
-    private var showMenuOnPress: Boolean = false
+    private var trigger: String = "tap"
     private var currentPopup: PopupMenu? = null
     private var menuItemIdCounter = 0
 
     init {
-        setupLongPressListener()
+        // Default trigger is "tap"
+        setupTapListener()
     }
 
     // ---- Config change handling ----
 
     private fun onConfigChanged() {
-        val wantsPressMode = parsePresentationFlag(menuConfigJson)
-        if (wantsPressMode != showMenuOnPress) {
-            showMenuOnPress = wantsPressMode
-            if (showMenuOnPress) {
+        val newTrigger = parseTrigger(menuConfigJson)
+        if (newTrigger != trigger) {
+            trigger = newTrigger
+            if (trigger == "tap") {
                 setupTapListener()
             } else {
                 setupLongPressListener()
@@ -317,11 +318,11 @@ class HybridContextMenuView(
 
     // ---- Helpers ----
 
-    private fun parsePresentationFlag(json: String): Boolean {
+    private fun parseTrigger(json: String): String {
         return try {
-            JSONObject(json).optBoolean("_showMenuOnPress", false)
+            JSONObject(json).optString("_trigger", "tap")
         } catch (e: Exception) {
-            false
+            "tap"
         }
     }
 

@@ -1,6 +1,7 @@
 #include <jni.h>
-#include "NitroPlatformComponentsOnLoad.hpp"
+#include "NitroContextMenuOnLoad.hpp"
 
-JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* vm, void*) {
-  return margelo::nitro::nitroplatformcomponents::initialize(vm);
+JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM *vm, void *)
+{
+  return margelo::nitro::nitrocontextmenu::initialize(vm);
 }

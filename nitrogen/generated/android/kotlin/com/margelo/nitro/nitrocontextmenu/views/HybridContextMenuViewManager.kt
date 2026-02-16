@@ -5,7 +5,7 @@
 /// Copyright © Marc Rousavy @ Margelo
 ///
 
-package com.margelo.nitro.nitroplatformcomponents.views
+package com.margelo.nitro.nitrocontextmenu.views
 
 import android.view.View
 import com.facebook.react.uimanager.ReactStylesDiffMap
@@ -14,7 +14,7 @@ import com.facebook.react.uimanager.StateWrapper
 import com.facebook.react.uimanager.ThemedReactContext
 import com.margelo.nitro.R.id.associated_hybrid_view_tag
 import com.margelo.nitro.views.RecyclableView
-import com.margelo.nitro.nitroplatformcomponents.*
+import com.margelo.nitro.nitrocontextmenu.*
 
 /**
  * Represents the React Native `ViewManager` for the "ContextMenuView" Nitro HybridView.

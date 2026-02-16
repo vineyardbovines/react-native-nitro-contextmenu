@@ -1,4 +1,4 @@
-package com.margelo.nitro.nitroplatformcomponents
+package com.margelo.nitro.nitrocontextmenu
 
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +8,7 @@ import com.facebook.react.uimanager.StateWrapper
 import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.ViewGroupManager
 import com.margelo.nitro.R.id.associated_hybrid_view_tag
-import com.margelo.nitro.nitroplatformcomponents.views.HybridContextMenuViewStateUpdater
+import com.margelo.nitro.nitrocontextmenu.views.HybridContextMenuViewStateUpdater
 
 /**
  * A ViewGroupManager for ContextMenuView that supports child views.

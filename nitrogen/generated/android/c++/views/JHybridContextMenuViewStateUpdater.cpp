@@ -10,7 +10,7 @@
 #include <NitroModules/NitroDefines.hpp>
 #include <react/fabric/StateWrapperImpl.h>
 
-namespace margelo::nitro::nitroplatformcomponents::views {
+namespace margelo::nitro::nitrocontextmenu::views {
 
 using namespace facebook;
 using ConcreteStateData = react::ConcreteState<HybridContextMenuViewState>;
@@ -74,4 +74,4 @@ void JHybridContextMenuViewStateUpdater::updateViewProps(jni::alias_ref<jni::JCl
   }
 }
 
-} // namespace margelo::nitro::nitroplatformcomponents::views
+} // namespace margelo::nitro::nitrocontextmenu::views

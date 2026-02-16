@@ -8,7 +8,7 @@
 #pragma once
 
 #ifndef RN_SERIALIZABLE_STATE
-#error NitroPlatformComponents was compiled without the 'RN_SERIALIZABLE_STATE' flag. This flag is required for Nitro Views - set it in your CMakeLists!
+#error NitroContextMenu was compiled without the 'RN_SERIALIZABLE_STATE' flag. This flag is required for Nitro Views - set it in your CMakeLists!
 #endif
 
 #include <fbjni/fbjni.h>
@@ -20,13 +20,13 @@
 #include "JHybridContextMenuViewSpec.hpp"
 #include "views/HybridContextMenuViewComponent.hpp"
 
-namespace margelo::nitro::nitroplatformcomponents::views {
+namespace margelo::nitro::nitrocontextmenu::views {
 
 using namespace facebook;
 
 class JHybridContextMenuViewStateUpdater final: public jni::JavaClass<JHybridContextMenuViewStateUpdater> {
 public:
-  static constexpr auto kJavaDescriptor = "Lcom/margelo/nitro/nitroplatformcomponents/views/HybridContextMenuViewStateUpdater;";
+  static constexpr auto kJavaDescriptor = "Lcom/margelo/nitro/nitrocontextmenu/views/HybridContextMenuViewStateUpdater;";
 
 public:
   static void updateViewProps(jni::alias_ref<jni::JClass> /* class */,
@@ -46,4 +46,4 @@ public:
   }
 };
 
-} // namespace margelo::nitro::nitroplatformcomponents::views
+} // namespace margelo::nitro::nitrocontextmenu::views

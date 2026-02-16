@@ -5,10 +5,10 @@
 /// Copyright © Marc Rousavy @ Margelo
 ///
 
-package com.margelo.nitro.nitroplatformcomponents.views
+package com.margelo.nitro.nitrocontextmenu.views
 
 import com.facebook.react.uimanager.StateWrapper
-import com.margelo.nitro.nitroplatformcomponents.*
+import com.margelo.nitro.nitrocontextmenu.*
 
 internal class HybridContextMenuViewStateUpdater {
   companion object {

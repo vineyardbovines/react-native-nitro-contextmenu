@@ -20,19 +20,21 @@ All menu configuration is serialized as JSON on the JS side and parsed natively.
 - `src/ContextMenu.tsx` — React component that serializes config and passes to native
 - `src/specs/ContextMenu.nitro.ts` — Nitro spec defining the native prop interface (string + callback props)
 - `ios/HybridContextMenuView.swift` — iOS implementation (UIContextMenuInteraction, TabState, MenuBuilder)
-- `android/src/main/java/com/margelo/nitro/nitroplatformcomponents/HybridContextMenuView.kt` — Android implementation (PopupMenu)
+- `android/src/main/java/com/margelo/nitro/nitrocontextmenu/HybridContextMenuView.kt` — Android implementation (PopupMenu)
 - `nitrogen/generated/` — Auto-generated bridge code. **Do not edit.**
 
 ### Adding new props
 
 If a new prop needs to flow through the native bridge (not just JSON):
+
 1. Add it to `src/specs/ContextMenu.nitro.ts`
 2. Run `npm run specs` to regenerate nitrogen files
 3. Implement the abstract property in both `HybridContextMenuView.swift` and `HybridContextMenuView.kt`
 
 If the prop can be embedded in the existing JSON config (preferred):
+
 1. Add the TypeScript type to `src/ContextMenuTypes.ts`
-2. Serialize it in `src/ContextMenu.tsx` (see `_showMenuOnPress` pattern)
+2. Serialize it in `src/ContextMenu.tsx` (see `_trigger` pattern)
 3. Parse it in the native `MenuBuilder` / JSON parsing code
 
 ## Build & Test
@@ -57,7 +59,7 @@ cd example/android && ./gradlew assembleDebug
 ## Conventions
 
 - Package name: `react-native-nitro-contextmenu`
-- Kotlin package: `com.margelo.nitro.nitroplatformcomponents`
+- Kotlin package: `com.margelo.nitro.nitrocontextmenu`
 - Swift has no module prefix — files live directly in `ios/`
 - The example app imports from the package name, resolving via metro `watchFolders`
 - Example types resolve from compiled `lib/` — run `npx tsc` after type changes

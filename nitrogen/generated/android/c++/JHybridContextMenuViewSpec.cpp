@@ -15,7 +15,7 @@
 #include <NitroModules/JNICallable.hpp>
 #include "JFunc_void.hpp"
 
-namespace margelo::nitro::nitroplatformcomponents {
+namespace margelo::nitro::nitrocontextmenu {
 
   jni::local_ref<JHybridContextMenuViewSpec::jhybriddata> JHybridContextMenuViewSpec::initHybrid(jni::alias_ref<jhybridobject> jThis) {
     return makeCxxInstance(jThis);
@@ -141,4 +141,4 @@ namespace margelo::nitro::nitroplatformcomponents {
   // Methods
   
 
-} // namespace margelo::nitro::nitroplatformcomponents
+} // namespace margelo::nitro::nitrocontextmenu

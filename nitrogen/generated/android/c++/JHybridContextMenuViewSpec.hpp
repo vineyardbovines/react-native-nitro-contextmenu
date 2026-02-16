@@ -14,14 +14,14 @@
 
 
 
-namespace margelo::nitro::nitroplatformcomponents {
+namespace margelo::nitro::nitrocontextmenu {
 
   using namespace facebook;
 
   class JHybridContextMenuViewSpec: public jni::HybridClass<JHybridContextMenuViewSpec, JHybridObject>,
                                     public virtual HybridContextMenuViewSpec {
   public:
-    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/nitroplatformcomponents/HybridContextMenuViewSpec;";
+    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/nitrocontextmenu/HybridContextMenuViewSpec;";
     static jni::local_ref<jhybriddata> initHybrid(jni::alias_ref<jhybridobject> jThis);
     static void registerNatives();
 
@@ -74,4 +74,4 @@ namespace margelo::nitro::nitroplatformcomponents {
     jni::global_ref<JHybridContextMenuViewSpec::javaobject> _javaPart;
   };
 
-} // namespace margelo::nitro::nitroplatformcomponents
+} // namespace margelo::nitro::nitrocontextmenu

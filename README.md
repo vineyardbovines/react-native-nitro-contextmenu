@@ -1,6 +1,6 @@
 # react-native-nitro-contextmenu
 
-Native context menus for React Native, built with [Nitro Modules](https://nitro.margelo.com). Supports actions, submenus, selection state, inline groups, palettes, tabbed menus, and tap-to-trigger.
+Native context menus built with [Nitro Modules](https://nitro.margelo.com). Supports actions, submenus, selection state, inline groups, palettes, tabbed menus, and tap-to-trigger.
 
 <p align="center">
   <img src="./assets/ios-demo.gif" alt="iOS Demo" width="300" />
@@ -45,7 +45,7 @@ function MyComponent() {
   return (
     <ContextMenu menuConfig={menuConfig} onPressAction={(key) => console.log("Selected:", key)}>
       <View style={{ padding: 20 }}>
-        <Text>Long press me</Text>
+        <Text>Tap me</Text>
       </View>
     </ContextMenu>
   );
@@ -56,9 +56,9 @@ function MyComponent() {
 
 | Prop              | Type                          | Description                                               |
 | ----------------- | ----------------------------- | --------------------------------------------------------- |
-| `menuConfig`      | `MenuConfig`                  | **Required.** The menu structure to display.              |
-| `showMenuOnPress` | `boolean`                     | Show menu on tap instead of long-press. Default: `false`. |
-| `onPressAction`   | `(actionKey: string) => void` | Called when a menu action is selected.                    |
+| `menuConfig`      | `MenuConfig`                  | **Required.** The menu structure to display.                    |
+| `trigger`         | `'tap' \| 'longPress'`        | How the menu is triggered. Default: `'tap'`.                    |
+| `onPressAction`   | `(actionKey: string) => void` | Called when a menu action is selected.                          |
 | `onMenuWillShow`  | `() => void`                  | Called when the menu is about to appear.                  |
 | `onMenuWillHide`  | `() => void`                  | Called when the menu is about to disappear.               |
 | `onPreviewPress`  | `() => void`                  | Called when the user taps the preview (iOS only).         |
@@ -294,19 +294,19 @@ const menuConfig: MenuConfig = {
 
 On iOS < 16 and on Android, the tab bar is omitted and the first tab's items are shown as a flat menu.
 
-### Tap to Trigger
+### Trigger Mode
 
-Set `showMenuOnPress` to show the menu on a single tap instead of long-press:
+By default, the menu opens on a single tap. Use `trigger="longPress"` for long-press with preview (iOS):
 
 ```tsx
-<ContextMenu menuConfig={menuConfig} showMenuOnPress>
+<ContextMenu menuConfig={menuConfig} trigger="longPress">
   <View>
-    <Text>Tap me</Text>
+    <Text>Long press me</Text>
   </View>
 </ContextMenu>
 ```
 
-On iOS, no preview is shown when `showMenuOnPress` is enabled.
+On iOS, no preview is shown when `trigger` is `'tap'`.
 
 ### Preview Configuration (iOS only)
 
@@ -362,7 +362,7 @@ import type {
 | Destructive style    | Red text + icon                            | Red icon tint                |
 | Disabled items       | Grayed out                                 | Grayed out                   |
 | Hidden items         | Excluded                                   | Excluded                     |
-| Tap to trigger       | `showMenuOnPress`                          | `showMenuOnPress`            |
+| Trigger mode         | `trigger="tap"` (default) or `"longPress"` | `trigger="tap"` or `"longPress"` |
 | Tabbed menus         | Tab bar + swappable content (iOS 16+)      | First tab shown as flat menu |
 | Palette mode         | Horizontal icon row (iOS 17+)              | Normal menu items            |
 | Preview              | Customizable preview with commit styles    | Not supported                |

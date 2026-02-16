@@ -20,19 +20,19 @@ def isNewArchitectureEnabled() {
 
 apply plugin: "com.android.library"
 apply plugin: 'org.jetbrains.kotlin.android'
-apply from: '../nitrogen/generated/android/NitroPlatformComponents+autolinking.gradle'
+apply from: '../nitrogen/generated/android/NitroContextMenu+autolinking.gradle'
 apply from: "./fix-prefab.gradle"
 
 def getExtOrDefault(name) {
-  return rootProject.ext.has(name) ? rootProject.ext.get(name) : project.properties["NitroPlatformComponents_" + name]
+  return rootProject.ext.has(name) ? rootProject.ext.get(name) : project.properties["NitroContextMenu_" + name]
 }
 
 def getExtOrIntegerDefault(name) {
-  return rootProject.ext.has(name) ? rootProject.ext.get(name) : (project.properties["NitroPlatformComponents_" + name]).toInteger()
+  return rootProject.ext.has(name) ? rootProject.ext.get(name) : (project.properties["NitroContextMenu_" + name]).toInteger()
 }
 
 android {
-  namespace "com.margelo.nitro.nitroplatformcomponents"
+  namespace "com.margelo.nitro.nitrocontextmenu"
 
   ndkVersion getExtOrDefault("ndkVersion")
   compileSdkVersion getExtOrIntegerDefault("compileSdkVersion")

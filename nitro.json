@@ -1,12 +1,12 @@
 {
   "$schema": "https://nitro.margelo.com/nitro.schema.json",
-  "cxxNamespace": ["nitroplatformcomponents"],
+  "cxxNamespace": ["nitrocontextmenu"],
   "ios": {
-    "iosModuleName": "NitroPlatformComponents"
+    "iosModuleName": "NitroContextMenu"
   },
   "android": {
-    "androidNamespace": ["nitroplatformcomponents"],
-    "androidCxxLibName": "NitroPlatformComponents"
+    "androidNamespace": ["nitrocontextmenu"],
+    "androidCxxLibName": "NitroContextMenu"
   },
   "autolinking": {
     "ContextMenuView": {

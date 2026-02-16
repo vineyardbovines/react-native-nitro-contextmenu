@@ -7,5 +7,5 @@
 
 #include "HybridContextMenuViewSpecSwift.hpp"
 
-namespace margelo::nitro::nitroplatformcomponents {
-} // namespace margelo::nitro::nitroplatformcomponents
+namespace margelo::nitro::nitrocontextmenu {
+} // namespace margelo::nitro::nitrocontextmenu

@@ -18,7 +18,7 @@
 #include <react/renderer/core/ComponentDescriptor.h>
 #include <react/renderer/components/view/ViewProps.h>
 
-namespace margelo::nitro::nitroplatformcomponents::views {
+namespace margelo::nitro::nitrocontextmenu::views {
 
   extern const char HybridContextMenuViewComponentName[] = "ContextMenuView";
 
@@ -135,4 +135,4 @@ namespace margelo::nitro::nitroplatformcomponents::views {
   }
 #endif
 
-} // namespace margelo::nitro::nitroplatformcomponents::views
+} // namespace margelo::nitro::nitrocontextmenu::views

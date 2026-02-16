@@ -18,7 +18,7 @@
 #include <string>
 #include <functional>
 
-namespace margelo::nitro::nitroplatformcomponents {
+namespace margelo::nitro::nitrocontextmenu {
 
   using namespace margelo::nitro;
 
@@ -71,4 +71,4 @@ namespace margelo::nitro::nitroplatformcomponents {
       static constexpr auto TAG = "ContextMenuView";
   };
 
-} // namespace margelo::nitro::nitroplatformcomponents
+} // namespace margelo::nitro::nitrocontextmenu

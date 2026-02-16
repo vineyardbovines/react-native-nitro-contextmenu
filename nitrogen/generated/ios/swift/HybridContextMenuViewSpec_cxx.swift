@@ -18,11 +18,11 @@ import NitroModules
  */
 open class HybridContextMenuViewSpec_cxx {
   /**
-   * The Swift <> C++ bridge's namespace (`margelo::nitro::nitroplatformcomponents::bridge::swift`)
-   * from `NitroPlatformComponents-Swift-Cxx-Bridge.hpp`.
+   * The Swift <> C++ bridge's namespace (`margelo::nitro::nitrocontextmenu::bridge::swift`)
+   * from `NitroContextMenu-Swift-Cxx-Bridge.hpp`.
    * This contains specialized C++ templates, and C++ helper functions that can be accessed from Swift.
    */
-  public typealias bridge = margelo.nitro.nitroplatformcomponents.bridge.swift
+  public typealias bridge = margelo.nitro.nitrocontextmenu.bridge.swift
 
   /**
    * Holds an instance of the `HybridContextMenuViewSpec` Swift protocol.

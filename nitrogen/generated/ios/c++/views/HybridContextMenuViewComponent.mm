@@ -15,11 +15,11 @@
 #import <UIKit/UIKit.h>
 
 #import "HybridContextMenuViewSpecSwift.hpp"
-#import "NitroPlatformComponents-Swift-Cxx-Umbrella.hpp"
+#import "NitroContextMenu-Swift-Cxx-Umbrella.hpp"
 
 using namespace facebook;
-using namespace margelo::nitro::nitroplatformcomponents;
-using namespace margelo::nitro::nitroplatformcomponents::views;
+using namespace margelo::nitro::nitrocontextmenu;
+using namespace margelo::nitro::nitrocontextmenu::views;
 
 /**
  * Represents the React Native View holder for the Nitro "ContextMenuView" HybridView.
@@ -43,7 +43,7 @@ using namespace margelo::nitro::nitroplatformcomponents::views;
 
 - (instancetype) init {
   if (self = [super init]) {
-    std::shared_ptr<HybridContextMenuViewSpec> hybridView = NitroPlatformComponents::NitroPlatformComponentsAutolinking::createContextMenuView();
+    std::shared_ptr<HybridContextMenuViewSpec> hybridView = NitroContextMenu::NitroContextMenuAutolinking::createContextMenuView();
     _hybridView = std::dynamic_pointer_cast<HybridContextMenuViewSpecSwift>(hybridView);
     [self updateView];
   }
@@ -52,7 +52,7 @@ using namespace margelo::nitro::nitroplatformcomponents::views;
 
 - (void) updateView {
   // 1. Get Swift part
-  NitroPlatformComponents::HybridContextMenuViewSpec_cxx& swiftPart = _hybridView->getSwiftPart();
+  NitroContextMenu::HybridContextMenuViewSpec_cxx& swiftPart = _hybridView->getSwiftPart();
 
   // 2. Get UIView*
   void* viewUnsafe = swiftPart.getView();
@@ -67,7 +67,7 @@ using namespace margelo::nitro::nitroplatformcomponents::views;
   // 1. Downcast props
   const auto& newViewPropsConst = *std::static_pointer_cast<HybridContextMenuViewProps const>(props);
   auto& newViewProps = const_cast<HybridContextMenuViewProps&>(newViewPropsConst);
-  NitroPlatformComponents::HybridContextMenuViewSpec_cxx& swiftPart = _hybridView->getSwiftPart();
+  NitroContextMenu::HybridContextMenuViewSpec_cxx& swiftPart = _hybridView->getSwiftPart();
 
   // 2. Update each prop individually
   swiftPart.beforeUpdate();
@@ -120,12 +120,12 @@ using namespace margelo::nitro::nitroplatformcomponents::views;
 }
 
 + (BOOL)shouldBeRecycled {
-  return NitroPlatformComponents::NitroPlatformComponentsAutolinking::isContextMenuViewRecyclable();
+  return NitroContextMenu::NitroContextMenuAutolinking::isContextMenuViewRecyclable();
 }
 
 - (void)prepareForRecycle {
   [super prepareForRecycle];
-  NitroPlatformComponents::HybridContextMenuViewSpec_cxx& swiftPart = _hybridView->getSwiftPart();
+  NitroContextMenu::HybridContextMenuViewSpec_cxx& swiftPart = _hybridView->getSwiftPart();
   swiftPart.maybePrepareForRecycle();
 }
 

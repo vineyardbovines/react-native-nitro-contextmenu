@@ -13,7 +13,7 @@
 #include <functional>
 #include <NitroModules/JNICallable.hpp>
 
-namespace margelo::nitro::nitroplatformcomponents {
+namespace margelo::nitro::nitrocontextmenu {
 
   using namespace facebook;
 
@@ -23,7 +23,7 @@ namespace margelo::nitro::nitroplatformcomponents {
    */
   struct JFunc_void: public jni::JavaClass<JFunc_void> {
   public:
-    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/nitroplatformcomponents/Func_void;";
+    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/nitrocontextmenu/Func_void;";
 
   public:
     /**
@@ -59,7 +59,7 @@ namespace margelo::nitro::nitroplatformcomponents {
     }
 
   public:
-    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/nitroplatformcomponents/Func_void_cxx;";
+    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/nitrocontextmenu/Func_void_cxx;";
     static void registerNatives() {
       registerHybrid({makeNativeMethod("invoke_cxx", JFunc_void_cxx::invoke_cxx)});
     }
@@ -72,4 +72,4 @@ namespace margelo::nitro::nitroplatformcomponents {
     std::function<void()> _func;
   };
 
-} // namespace margelo::nitro::nitroplatformcomponents
+} // namespace margelo::nitro::nitrocontextmenu

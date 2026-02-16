@@ -22,7 +22,7 @@
 #include "HybridContextMenuViewSpec.hpp"
 #include <optional>
 
-namespace margelo::nitro::nitroplatformcomponents::views {
+namespace margelo::nitro::nitrocontextmenu::views {
 
   using namespace facebook;
 
@@ -113,4 +113,4 @@ namespace margelo::nitro::nitroplatformcomponents::views {
 
   /* The actual view for "ContextMenuView" needs to be implemented in platform-specific code. */
 
-} // namespace margelo::nitro::nitroplatformcomponents::views
+} // namespace margelo::nitro::nitrocontextmenu::views

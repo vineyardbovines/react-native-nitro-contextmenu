@@ -54,14 +54,10 @@ function BasicExample() {
   };
 
   return (
-    <ContextMenu
-      showMenuOnPress
-      menuConfig={menuConfig}
-      onPressAction={(key) => Alert.alert("Action", key)}
-    >
+    <ContextMenu menuConfig={menuConfig} onPressAction={(key) => Alert.alert("Action", key)}>
       <View style={styles.card}>
         <Text style={styles.cardTitle}>Basic Actions</Text>
-        <Text style={styles.cardSub}>Long press for copy, paste, share</Text>
+        <Text style={styles.cardSub}>Tap for copy, paste, share</Text>
       </View>
     </ContextMenu>
   );
@@ -91,7 +87,11 @@ function BasicLongPressExample() {
   };
 
   return (
-    <ContextMenu menuConfig={menuConfig} onPressAction={(key) => Alert.alert("Action", key)}>
+    <ContextMenu
+      trigger="longPress"
+      menuConfig={menuConfig}
+      onPressAction={(key) => Alert.alert("Action", key)}
+    >
       <View style={styles.card}>
         <Text style={styles.cardTitle}>Long Press to open</Text>
       </View>
@@ -140,11 +140,7 @@ function SubmenusExample() {
   };
 
   return (
-    <ContextMenu
-      showMenuOnPress
-      menuConfig={menuConfig}
-      onPressAction={(key) => Alert.alert("Filter", key)}
-    >
+    <ContextMenu menuConfig={menuConfig} onPressAction={(key) => Alert.alert("Filter", key)}>
       <View style={styles.card}>
         <Text style={styles.cardTitle}>Nested Submenus</Text>
         <Text style={styles.cardSub}>Cabin, Programs, Alliances filters</Text>
@@ -188,7 +184,7 @@ function SelectionExample() {
   };
 
   return (
-    <ContextMenu showMenuOnPress menuConfig={menuConfig} onPressAction={(key) => setSelected(key)}>
+    <ContextMenu menuConfig={menuConfig} onPressAction={(key) => setSelected(key)}>
       <View style={styles.card}>
         <Text style={styles.cardTitle}>Single Selection</Text>
         <Text style={styles.cardSub}>Current: {selected} (checkmark state)</Text>
@@ -234,11 +230,7 @@ function AttributesExample() {
   };
 
   return (
-    <ContextMenu
-      showMenuOnPress
-      menuConfig={menuConfig}
-      onPressAction={(key) => Alert.alert("Action", key)}
-    >
+    <ContextMenu menuConfig={menuConfig} onPressAction={(key) => Alert.alert("Action", key)}>
       <View style={styles.card}>
         <Text style={styles.cardTitle}>Attributes</Text>
         <Text style={styles.cardSub}>Disabled archive, destructive delete</Text>
@@ -287,11 +279,7 @@ function PaletteExample() {
   };
 
   return (
-    <ContextMenu
-      showMenuOnPress
-      menuConfig={menuConfig}
-      onPressAction={(key) => Alert.alert("Color", key)}
-    >
+    <ContextMenu menuConfig={menuConfig} onPressAction={(key) => Alert.alert("Color", key)}>
       <View style={styles.card}>
         <Text style={styles.cardTitle}>Palette (iOS 17+)</Text>
         <Text style={styles.cardSub}>Horizontal icon row</Text>
@@ -352,11 +340,7 @@ function InlineGroupsExample() {
   };
 
   return (
-    <ContextMenu
-      showMenuOnPress
-      menuConfig={menuConfig}
-      onPressAction={(key) => Alert.alert("Action", key)}
-    >
+    <ContextMenu menuConfig={menuConfig} onPressAction={(key) => Alert.alert("Action", key)}>
       <View style={styles.card}>
         <Text style={styles.cardTitle}>Inline Groups</Text>
         <Text style={styles.cardSub}>Small cut/copy/paste bar + separated sections</Text>
@@ -436,11 +420,7 @@ function TabbedMenuExample() {
   };
 
   return (
-    <ContextMenu
-      showMenuOnPress
-      menuConfig={menuConfig}
-      onPressAction={(key) => Alert.alert("Tabbed Action", key)}
-    >
+    <ContextMenu menuConfig={menuConfig} onPressAction={(key) => Alert.alert("Tabbed Action", key)}>
       <View style={styles.card}>
         <Text style={styles.cardTitle}>Tabbed Menu (iOS 16+)</Text>
         <Text style={styles.cardSub}>Sort / Filter / View tabs — content swaps in-place</Text>
@@ -478,11 +458,7 @@ function TapTriggerExample() {
   };
 
   return (
-    <ContextMenu
-      menuConfig={menuConfig}
-      showMenuOnPress
-      onPressAction={(key) => Alert.alert("Sort", key)}
-    >
+    <ContextMenu menuConfig={menuConfig} onPressAction={(key) => Alert.alert("Sort", key)}>
       <View style={styles.card}>
         <Text style={styles.cardTitle}>Tap to Trigger</Text>
         <Text style={styles.cardSub}>Single tap shows menu (no long press)</Text>

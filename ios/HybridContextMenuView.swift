@@ -56,12 +56,13 @@ private class ContextMenuContainerView: UIView, UIContextMenuInteractionDelegate
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupInteraction()
+        // Default trigger is "tap" — start in button mode
+        switchToButtonMode()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setupInteraction()
+        switchToButtonMode()
     }
 
     private func setupInteraction() {
@@ -269,13 +270,13 @@ private class TabState {
 
 private enum MenuBuilder {
 
-    /// Reads the `_showMenuOnPress` flag from the JSON config.
-    static func parsePresentationFlag(from json: String) -> Bool {
+    /// Reads the `_trigger` value from the JSON config. Defaults to `"tap"`.
+    static func parseTrigger(from json: String) -> String {
         guard let data = json.data(using: .utf8),
               let root = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else {
-            return false
+            return "tap"
         }
-        return root["_showMenuOnPress"] as? Bool ?? false
+        return root["_trigger"] as? String ?? "tap"
     }
 
     static func buildMenu(
