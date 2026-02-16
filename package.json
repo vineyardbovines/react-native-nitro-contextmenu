@@ -27,6 +27,9 @@
     "*.podspec",
     "README.md"
   ],
+  "workspaces": [
+    "example"
+  ],
   "scripts": {
     "clean": "git clean -dfX",
     "format": "bunx biome check --write --no-errors-on-unmatched .",

@@ -127,8 +127,10 @@ private class ContextMenuContainerView: UIView, UIContextMenuInteractionDelegate
             let menu = MenuBuilder.buildMenu(
                 from: menuConfigJson,
                 onAction: onPressAction,
-                tabState: TabState(), // Fresh state; no dynamic tab switching in button mode
-                onTabSelected: {} // No-op; updateVisibleMenu not available in button mode
+                tabState: tabState,
+                onTabSelected: { [weak self] in
+                    self?.handleTabSelected()
+                }
             )
             button.menu = menu
         }
@@ -136,11 +138,11 @@ private class ContextMenuContainerView: UIView, UIContextMenuInteractionDelegate
 
     private func handleTabSelected() {
         if #available(iOS 16.0, *) {
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                self.interaction?.updateVisibleMenu { [weak self] currentMenu in
+            if let interaction = self.interaction {
+                // Long-press mode: update the visible context menu in-place.
+                interaction.updateVisibleMenu { [weak self] currentMenu in
                     guard let self = self else { return currentMenu }
-                    return MenuBuilder.assembleMenu(
+                    let rebuilt = MenuBuilder.assembleMenu(
                         rootTitle: currentMenu.title,
                         tabState: self.tabState,
                         onAction: self.onPressAction,
@@ -148,7 +150,11 @@ private class ContextMenuContainerView: UIView, UIContextMenuInteractionDelegate
                             self?.handleTabSelected()
                         }
                     )
+                    return currentMenu.replacingChildren(rebuilt.children)
                 }
+            } else if menuButton != nil {
+                // Button mode: reassign the menu to refresh visible content.
+                rebuildButtonMenu()
             }
         }
     }
@@ -223,15 +229,11 @@ private class ContextMenuContainerView: UIView, UIContextMenuInteractionDelegate
     ) -> UITargetedPreview? {
         let previewConfig = PreviewConfigParser.parse(json: previewConfigJson)
 
-        // Only return a custom preview when explicitly configured;
-        // otherwise return nil so UIKit handles it automatically.
-        guard previewConfig.backgroundColor != nil || previewConfig.borderRadius != nil else {
-            return nil
-        }
-
         let parameters = UIPreviewParameters()
         if let bgColor = previewConfig.backgroundColor {
             parameters.backgroundColor = bgColor
+        } else {
+            parameters.backgroundColor = .clear
         }
         if let radius = previewConfig.borderRadius {
             parameters.visiblePath = UIBezierPath(
@@ -371,10 +373,20 @@ private enum MenuBuilder {
 
         var tabBarMenu: UIMenu
         if #available(iOS 16.0, *) {
-            tabBarMenu = UIMenu(title: "", options: .displayInline, children: tabActions)
+            tabBarMenu = UIMenu(
+                title: "",
+                identifier: UIMenu.Identifier("__tabBar__"),
+                options: .displayInline,
+                children: tabActions
+            )
             tabBarMenu.preferredElementSize = .small
         } else {
-            tabBarMenu = UIMenu(title: "", options: .displayInline, children: tabActions)
+            tabBarMenu = UIMenu(
+                title: "",
+                identifier: UIMenu.Identifier("__tabBar__"),
+                options: .displayInline,
+                children: tabActions
+            )
         }
 
         // --- Content items from selected tab ---
@@ -387,13 +399,20 @@ private enum MenuBuilder {
             contentChildren = []
         }
 
-        let contentMenu = UIMenu(title: "", options: .displayInline, children: contentChildren)
-
         // --- Root menu ---
         var rootChildren: [UIMenuElement] = []
         if #available(iOS 16.0, *) {
             rootChildren.append(tabBarMenu)
         }
+
+        // Content must be wrapped in a .displayInline group so
+        // updateVisibleMenu can properly replace it during tab switches.
+        let contentMenu = UIMenu(
+            title: "",
+            identifier: UIMenu.Identifier("__content__"),
+            options: .displayInline,
+            children: contentChildren
+        )
         rootChildren.append(contentMenu)
 
         return UIMenu(title: rootTitle, children: rootChildren)

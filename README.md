@@ -1,6 +1,11 @@
 # react-native-nitro-contextmenu
 
-Native context menus for React Native, built with [Nitro Modules](https://nitro.margelo.cc). Uses `UIContextMenuInteraction` on iOS and `PopupMenu` on Android with a single declarative API — supports actions, submenus, selection state, inline groups, palettes, tabbed menus, and tap-to-trigger.
+Native context menus for React Native, built with [Nitro Modules](https://nitro.margelo.com). Supports actions, submenus, selection state, inline groups, palettes, tabbed menus, and tap-to-trigger.
+
+<p align="center">
+  <img src="assets/ios-demo.gif" alt="iOS Demo" width="300" />
+  <img src="assets/android-demo.gif" alt="Android Demo" width="300" />
+</p>
 
 ## Installation
 
@@ -19,31 +24,31 @@ Android requires no additional setup.
 ## Quick Start
 
 ```tsx
-import { ContextMenu } from 'react-native-nitro-contextmenu'
-import type { MenuConfig } from 'react-native-nitro-contextmenu'
+import { ContextMenu } from "react-native-nitro-contextmenu";
+import type { MenuConfig } from "react-native-nitro-contextmenu";
 
 function MyComponent() {
   const menuConfig: MenuConfig = {
-    title: '',
+    title: "",
     items: [
-      { actionKey: 'copy', title: 'Copy', image: { systemName: 'doc.on.doc' } },
-      { actionKey: 'paste', title: 'Paste', image: { systemName: 'doc.on.clipboard' } },
+      { actionKey: "copy", title: "Copy", image: { systemName: "doc.on.doc" } },
+      { actionKey: "paste", title: "Paste", image: { systemName: "doc.on.clipboard" } },
       {
-        actionKey: 'delete',
-        title: 'Delete',
-        image: { systemName: 'trash' },
-        attributes: ['destructive'],
+        actionKey: "delete",
+        title: "Delete",
+        image: { systemName: "trash" },
+        attributes: ["destructive"],
       },
     ],
-  }
+  };
 
   return (
-    <ContextMenu menuConfig={menuConfig} onPressAction={(key) => console.log('Selected:', key)}>
+    <ContextMenu menuConfig={menuConfig} onPressAction={(key) => console.log("Selected:", key)}>
       <View style={{ padding: 20 }}>
         <Text>Long press me</Text>
       </View>
     </ContextMenu>
-  )
+  );
 }
 ```
 
@@ -68,13 +73,13 @@ The root menu and any submenus share the same shape:
 
 ```ts
 interface MenuConfig {
-  title?: string
-  subtitle?: string // iOS only
-  image?: SystemImage
-  options?: MenuOption[]
-  preferredElementSize?: 'small' | 'medium' | 'large' // iOS 16+
-  tabs?: MenuTab[] // iOS 16+ — when present, items is ignored
-  items: MenuElement[]
+  title?: string;
+  subtitle?: string; // iOS only
+  image?: SystemImage;
+  options?: MenuOption[];
+  preferredElementSize?: "small" | "medium" | "large"; // iOS 16+
+  tabs?: MenuTab[]; // iOS 16+ — when present, items is ignored
+  items: MenuElement[];
 }
 ```
 
@@ -84,14 +89,14 @@ Leaf actions that appear as tappable rows:
 
 ```ts
 interface MenuAction {
-  actionKey: string // Unique key returned in onPressAction
-  title: string
-  subtitle?: string // iOS 15+
-  image?: MenuImage // SF Symbol or URL
-  selectedImage?: SystemImage // Icon when state is 'on' (iOS 17+)
-  attributes?: MenuElementAttribute[]
-  state?: 'on' | 'off' | 'mixed'
-  discoverabilityTitle?: string // iOS only
+  actionKey: string; // Unique key returned in onPressAction
+  title: string;
+  subtitle?: string; // iOS 15+
+  image?: MenuImage; // SF Symbol or URL
+  selectedImage?: SystemImage; // Icon when state is 'on' (iOS 17+)
+  attributes?: MenuElementAttribute[];
+  state?: "on" | "off" | "mixed";
+  discoverabilityTitle?: string; // iOS only
 }
 ```
 
@@ -104,12 +109,12 @@ A union of `MenuAction | MenuConfig`. The native side discriminates by checking 
 ```ts
 // SF Symbol (iOS native, mapped to Android system drawables)
 {
-  systemName: 'star.fill'
+  systemName: "star.fill";
 }
 
 // URL image (iOS only)
 {
-  url: 'https://example.com/icon.png'
+  url: "https://example.com/icon.png";
 }
 ```
 
@@ -145,19 +150,19 @@ Nest `MenuConfig` objects inside `items` to create submenus:
 
 ```tsx
 const menuConfig: MenuConfig = {
-  title: '',
+  title: "",
   items: [
     {
-      title: 'Sort By',
-      image: { systemName: 'arrow.up.arrow.down' },
+      title: "Sort By",
+      image: { systemName: "arrow.up.arrow.down" },
       items: [
-        { actionKey: 'sort-name', title: 'Name' },
-        { actionKey: 'sort-date', title: 'Date' },
-        { actionKey: 'sort-size', title: 'Size' },
+        { actionKey: "sort-name", title: "Name" },
+        { actionKey: "sort-date", title: "Date" },
+        { actionKey: "sort-size", title: "Size" },
       ],
     },
   ],
-}
+};
 ```
 
 ### Single Selection
@@ -193,21 +198,21 @@ Use `displayInline` to show items in the same level with visual separators, and 
 
 ```tsx
 const menuConfig: MenuConfig = {
-  title: '',
+  title: "",
   items: [
     {
-      title: '',
-      options: ['displayInline'],
-      preferredElementSize: 'small',
+      title: "",
+      options: ["displayInline"],
+      preferredElementSize: "small",
       items: [
-        { actionKey: 'cut', title: 'Cut', image: { systemName: 'scissors' } },
-        { actionKey: 'copy', title: 'Copy', image: { systemName: 'doc.on.doc' } },
-        { actionKey: 'paste', title: 'Paste', image: { systemName: 'doc.on.clipboard' } },
+        { actionKey: "cut", title: "Cut", image: { systemName: "scissors" } },
+        { actionKey: "copy", title: "Copy", image: { systemName: "doc.on.doc" } },
+        { actionKey: "paste", title: "Paste", image: { systemName: "doc.on.clipboard" } },
       ],
     },
-    { actionKey: 'select-all', title: 'Select All', image: { systemName: 'selection.pin.in.out' } },
+    { actionKey: "select-all", title: "Select All", image: { systemName: "selection.pin.in.out" } },
   ],
-}
+};
 ```
 
 ### Palette (iOS only)
@@ -216,43 +221,43 @@ Use `displayAsPalette` for a horizontal icon strip (e.g. color pickers). On Andr
 
 ```tsx
 const menuConfig: MenuConfig = {
-  title: 'Color',
+  title: "Color",
   items: [
     {
-      title: '',
-      options: ['displayInline', 'displayAsPalette'],
+      title: "",
+      options: ["displayInline", "displayAsPalette"],
       items: [
-        { actionKey: 'red', title: 'Red', image: { systemName: 'circle.fill' } },
-        { actionKey: 'green', title: 'Green', image: { systemName: 'circle.fill' } },
-        { actionKey: 'blue', title: 'Blue', image: { systemName: 'circle.fill' } },
+        { actionKey: "red", title: "Red", image: { systemName: "circle.fill" } },
+        { actionKey: "green", title: "Green", image: { systemName: "circle.fill" } },
+        { actionKey: "blue", title: "Blue", image: { systemName: "circle.fill" } },
       ],
     },
   ],
-}
+};
 ```
 
 ### Destructive & Disabled Actions
 
 ```tsx
 const menuConfig: MenuConfig = {
-  title: '',
+  title: "",
   items: [
-    { actionKey: 'edit', title: 'Edit', image: { systemName: 'pencil' } },
-    { actionKey: 'archive', title: 'Archive', attributes: ['disabled'] },
+    { actionKey: "edit", title: "Edit", image: { systemName: "pencil" } },
+    { actionKey: "archive", title: "Archive", attributes: ["disabled"] },
     {
-      title: '',
-      options: ['displayInline'],
+      title: "",
+      options: ["displayInline"],
       items: [
         {
-          actionKey: 'delete',
-          title: 'Delete',
-          image: { systemName: 'trash' },
-          attributes: ['destructive'],
+          actionKey: "delete",
+          title: "Delete",
+          image: { systemName: "trash" },
+          attributes: ["destructive"],
         },
       ],
     },
   ],
-}
+};
 ```
 
 ### Tabbed Menu (iOS 16+)
@@ -261,30 +266,30 @@ Tabs display a row of buttons at the top of the menu. Tapping a tab swaps the it
 
 ```tsx
 const menuConfig: MenuConfig = {
-  title: '',
+  title: "",
   tabs: [
     {
-      tabKey: 'sort',
-      title: 'Sort',
-      image: { systemName: 'arrow.up.arrow.down' },
+      tabKey: "sort",
+      title: "Sort",
+      image: { systemName: "arrow.up.arrow.down" },
       items: [
-        { actionKey: 'sort-name', title: 'Name' },
-        { actionKey: 'sort-date', title: 'Date' },
-        { actionKey: 'sort-size', title: 'Size' },
+        { actionKey: "sort-name", title: "Name" },
+        { actionKey: "sort-date", title: "Date" },
+        { actionKey: "sort-size", title: "Size" },
       ],
     },
     {
-      tabKey: 'filter',
-      title: 'Filter',
-      image: { systemName: 'line.3.horizontal.decrease' },
+      tabKey: "filter",
+      title: "Filter",
+      image: { systemName: "line.3.horizontal.decrease" },
       items: [
-        { actionKey: 'filter-images', title: 'Images' },
-        { actionKey: 'filter-videos', title: 'Videos' },
+        { actionKey: "filter-images", title: "Images" },
+        { actionKey: "filter-videos", title: "Videos" },
       ],
     },
   ],
   items: [],
-}
+};
 ```
 
 On iOS < 16 and on Android, the tab bar is omitted and the first tab's items are shown as a flat menu.
@@ -311,12 +316,12 @@ Customize the context menu preview. This has no effect on Android.
 <ContextMenu
   menuConfig={menuConfig}
   previewConfig={{
-    previewType: 'view', // 'view' (default) or 'none'
-    preferredCommitStyle: 'pop', // 'pop' (default) or 'dismiss'
-    backgroundColor: '#ffffff',
+    previewType: "view", // 'view' (default) or 'none'
+    preferredCommitStyle: "pop", // 'pop' (default) or 'dismiss'
+    backgroundColor: "#ffffff",
     borderRadius: 16,
   }}
-  onPreviewPress={() => console.log('Preview tapped')}
+  onPreviewPress={() => console.log("Preview tapped")}
 >
   {/* ... */}
 </ContextMenu>
@@ -341,7 +346,7 @@ import type {
   SystemImage,
   UrlImage,
   PreviewConfig,
-} from 'react-native-nitro-contextmenu'
+} from "react-native-nitro-contextmenu";
 ```
 
 ## Platform Support

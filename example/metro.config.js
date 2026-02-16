@@ -1,35 +1,26 @@
+const { getDefaultConfig } = require('expo/metro-config');
 const path = require('path');
-const {getDefaultConfig, mergeConfig} = require('@react-native/metro-config');
-const pak = require('../package.json');
 
-const root = path.resolve(__dirname, '..');
+const projectRoot = __dirname;
+const monorepoRoot = path.resolve(projectRoot, '..');
 
-const peerDeps = Object.keys(pak.peerDependencies || {});
+const config = getDefaultConfig(projectRoot);
 
-// Block the root's copies of peer deps so only the example's copies are used,
-// preventing duplicate React instances.
-const blockPatterns = peerDeps.map(
-  dep =>
-    new RegExp(
-      `^${path.resolve(root, 'node_modules', dep).replace(/[/\\.*+?^${}()|[\]]/g, '\\$&')}/.*$`,
-    ),
-);
+// Watch the monorepo root for changes
+config.watchFolders = [monorepoRoot];
 
-/**
- * Metro configuration
- * https://reactnative.dev/docs/metro
- *
- * @type {import('@react-native/metro-config').MetroConfig}
- */
-const config = {
-  watchFolders: [root],
-  resolver: {
-    blockList: blockPatterns,
-    nodeModulesPaths: [
-      path.resolve(__dirname, 'node_modules'),
-      path.resolve(root, 'node_modules'),
-    ],
-  },
+// Resolve modules from both the example and the root
+config.resolver.nodeModulesPaths = [
+  path.resolve(projectRoot, 'node_modules'),
+  path.resolve(monorepoRoot, 'node_modules'),
+];
+
+// Force resolution of react-native-nitro-contextmenu to the local package
+config.resolver.extraNodeModules = {
+  'react-native-nitro-contextmenu': monorepoRoot,
 };
 
-module.exports = mergeConfig(getDefaultConfig(__dirname), config);
+// Ensure we don't have duplicate React instances
+config.resolver.disableHierarchicalLookup = true;
+
+module.exports = config;

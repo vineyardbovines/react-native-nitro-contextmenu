@@ -15,6 +15,7 @@ function App() {
           <Text style={styles.header}>Context Menu Examples</Text>
 
           <BasicExample />
+          <BasicLongPressExample />
           <SubmenusExample />
           <SelectionExample />
           <AttributesExample />
@@ -53,10 +54,46 @@ function BasicExample() {
   };
 
   return (
-    <ContextMenu menuConfig={menuConfig} onPressAction={(key) => Alert.alert("Action", key)}>
+    <ContextMenu
+      showMenuOnPress
+      menuConfig={menuConfig}
+      onPressAction={(key) => Alert.alert("Action", key)}
+    >
       <View style={styles.card}>
         <Text style={styles.cardTitle}>Basic Actions</Text>
         <Text style={styles.cardSub}>Long press for copy, paste, share</Text>
+      </View>
+    </ContextMenu>
+  );
+}
+
+function BasicLongPressExample() {
+  const menuConfig: MenuConfig = {
+    title: "",
+    items: [
+      {
+        actionKey: "copy",
+        title: "Copy",
+        image: { systemName: "doc.on.doc" },
+      },
+      {
+        actionKey: "paste",
+        title: "Paste",
+        image: { systemName: "doc.on.clipboard" },
+      },
+      {
+        actionKey: "share",
+        title: "Share",
+        subtitle: "Share with others",
+        image: { systemName: "square.and.arrow.up" },
+      },
+    ],
+  };
+
+  return (
+    <ContextMenu menuConfig={menuConfig} onPressAction={(key) => Alert.alert("Action", key)}>
+      <View style={styles.card}>
+        <Text style={styles.cardTitle}>Long Press to open</Text>
       </View>
     </ContextMenu>
   );
@@ -103,7 +140,11 @@ function SubmenusExample() {
   };
 
   return (
-    <ContextMenu menuConfig={menuConfig} onPressAction={(key) => Alert.alert("Filter", key)}>
+    <ContextMenu
+      showMenuOnPress
+      menuConfig={menuConfig}
+      onPressAction={(key) => Alert.alert("Filter", key)}
+    >
       <View style={styles.card}>
         <Text style={styles.cardTitle}>Nested Submenus</Text>
         <Text style={styles.cardSub}>Cabin, Programs, Alliances filters</Text>
@@ -147,7 +188,7 @@ function SelectionExample() {
   };
 
   return (
-    <ContextMenu menuConfig={menuConfig} onPressAction={(key) => setSelected(key)}>
+    <ContextMenu showMenuOnPress menuConfig={menuConfig} onPressAction={(key) => setSelected(key)}>
       <View style={styles.card}>
         <Text style={styles.cardTitle}>Single Selection</Text>
         <Text style={styles.cardSub}>Current: {selected} (checkmark state)</Text>
@@ -193,7 +234,11 @@ function AttributesExample() {
   };
 
   return (
-    <ContextMenu menuConfig={menuConfig} onPressAction={(key) => Alert.alert("Action", key)}>
+    <ContextMenu
+      showMenuOnPress
+      menuConfig={menuConfig}
+      onPressAction={(key) => Alert.alert("Action", key)}
+    >
       <View style={styles.card}>
         <Text style={styles.cardTitle}>Attributes</Text>
         <Text style={styles.cardSub}>Disabled archive, destructive delete</Text>
@@ -242,7 +287,11 @@ function PaletteExample() {
   };
 
   return (
-    <ContextMenu menuConfig={menuConfig} onPressAction={(key) => Alert.alert("Color", key)}>
+    <ContextMenu
+      showMenuOnPress
+      menuConfig={menuConfig}
+      onPressAction={(key) => Alert.alert("Color", key)}
+    >
       <View style={styles.card}>
         <Text style={styles.cardTitle}>Palette (iOS 17+)</Text>
         <Text style={styles.cardSub}>Horizontal icon row</Text>
@@ -303,7 +352,11 @@ function InlineGroupsExample() {
   };
 
   return (
-    <ContextMenu menuConfig={menuConfig} onPressAction={(key) => Alert.alert("Action", key)}>
+    <ContextMenu
+      showMenuOnPress
+      menuConfig={menuConfig}
+      onPressAction={(key) => Alert.alert("Action", key)}
+    >
       <View style={styles.card}>
         <Text style={styles.cardTitle}>Inline Groups</Text>
         <Text style={styles.cardSub}>Small cut/copy/paste bar + separated sections</Text>
@@ -383,7 +436,11 @@ function TabbedMenuExample() {
   };
 
   return (
-    <ContextMenu menuConfig={menuConfig} onPressAction={(key) => Alert.alert("Tabbed Action", key)}>
+    <ContextMenu
+      showMenuOnPress
+      menuConfig={menuConfig}
+      onPressAction={(key) => Alert.alert("Tabbed Action", key)}
+    >
       <View style={styles.card}>
         <Text style={styles.cardTitle}>Tabbed Menu (iOS 16+)</Text>
         <Text style={styles.cardSub}>Sort / Filter / View tabs — content swaps in-place</Text>

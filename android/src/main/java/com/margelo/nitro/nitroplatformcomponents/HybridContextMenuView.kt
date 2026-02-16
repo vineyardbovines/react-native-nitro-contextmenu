@@ -1,11 +1,15 @@
 package com.margelo.nitro.nitroplatformcomponents
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.util.Log
+import android.view.GestureDetector
 import android.view.Menu
+import android.view.MotionEvent
 import android.view.View
+import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.PopupMenu
 import androidx.annotation.Keep
@@ -15,6 +19,37 @@ import com.facebook.react.uimanager.ThemedReactContext
 import org.json.JSONArray
 import org.json.JSONObject
 
+/**
+ * A FrameLayout that intercepts touch events for gesture detection
+ * while still allowing children to render normally.
+ */
+private class InterceptingFrameLayout(context: Context) : FrameLayout(context) {
+    var onTap: (() -> Unit)? = null
+    var onLongPress: (() -> Unit)? = null
+
+    private val gestureDetector = GestureDetector(context, object : GestureDetector.SimpleOnGestureListener() {
+        override fun onSingleTapUp(e: MotionEvent): Boolean {
+            onTap?.invoke()
+            return onTap != null
+        }
+        override fun onLongPress(e: MotionEvent) {
+            onLongPress?.invoke()
+        }
+    })
+
+    override fun onInterceptTouchEvent(ev: MotionEvent): Boolean {
+        gestureDetector.onTouchEvent(ev)
+        // Don't intercept — let children handle the touch too
+        return false
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        // Feed all touches to the gesture detector regardless of children
+        gestureDetector.onTouchEvent(ev)
+        return super.dispatchTouchEvent(ev)
+    }
+}
+
 @DoNotStrip
 @Keep
 class HybridContextMenuView(
@@ -22,7 +57,7 @@ class HybridContextMenuView(
 ) : HybridContextMenuViewSpec() {
 
     // -- View --
-    private val containerView: FrameLayout = FrameLayout(
+    private val containerView: InterceptingFrameLayout = InterceptingFrameLayout(
         reactContext ?: throw IllegalStateException("ThemedReactContext is required")
     )
     override val view: View get() = containerView
@@ -66,22 +101,13 @@ class HybridContextMenuView(
     }
 
     private fun setupLongPressListener() {
-        containerView.setOnClickListener(null)
-        containerView.isClickable = false
-        containerView.setOnLongClickListener {
-            showPopupMenu(containerView)
-            true
-        }
-        containerView.isLongClickable = true
+        containerView.onTap = null
+        containerView.onLongPress = { showPopupMenu(containerView) }
     }
 
     private fun setupTapListener() {
-        containerView.setOnLongClickListener(null)
-        containerView.isLongClickable = false
-        containerView.setOnClickListener {
-            showPopupMenu(containerView)
-        }
-        containerView.isClickable = true
+        containerView.onLongPress = null
+        containerView.onTap = { showPopupMenu(containerView) }
     }
 
     // ---- PopupMenu construction ----

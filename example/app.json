@@ -1,4 +1,33 @@
 {
-  "name": "ContextMenuExample",
-  "displayName": "ContextMenuExample"
+  "expo": {
+    "name": "ContextMenu Example",
+    "slug": "contextmenu-example",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.nitroar.example",
+      "appleTeamId": "5M2Q8TEJPF"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": false,
+      "package": "com.nitroar.example"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
 }
