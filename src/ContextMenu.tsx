@@ -18,7 +18,7 @@ const noop = () => {};
 
 export function ContextMenu({
   menuConfig,
-  showMenuOnPress,
+  trigger = "tap",
   previewConfig,
   onPressAction,
   onMenuWillShow,
@@ -30,9 +30,9 @@ export function ContextMenu({
     () =>
       JSON.stringify({
         ...menuConfig,
-        ...(showMenuOnPress ? { _showMenuOnPress: true } : undefined),
+        _trigger: trigger,
       }),
-    [menuConfig, showMenuOnPress]
+    [menuConfig, trigger]
   );
 
   const previewConfigJson = useMemo(() => JSON.stringify(previewConfig ?? {}), [previewConfig]);

@@ -42,7 +42,7 @@ private class ContextMenuContainerView: UIView, UIContextMenuInteractionDelegate
     private var interaction: UIContextMenuInteraction?
     private var menuButton: UIButton?
     private var tabState = TabState()
-    private var showMenuOnPress = false
+    private var trigger: String = "tap"
 
     var menuConfigJson: String = "{}" {
         didSet { configDidChange() }
@@ -71,19 +71,18 @@ private class ContextMenuContainerView: UIView, UIContextMenuInteractionDelegate
     }
 
     private func configDidChange() {
-        // Check if showMenuOnPress changed
-        let wantsPressMode = MenuBuilder.parsePresentationFlag(from: menuConfigJson)
+        let newTrigger = MenuBuilder.parseTrigger(from: menuConfigJson)
 
-        if wantsPressMode != showMenuOnPress {
-            showMenuOnPress = wantsPressMode
-            if showMenuOnPress {
+        if newTrigger != trigger {
+            trigger = newTrigger
+            if trigger == "tap" {
                 switchToButtonMode()
             } else {
                 switchToInteractionMode()
             }
         }
 
-        if showMenuOnPress {
+        if trigger == "tap" {
             rebuildButtonMenu()
         }
     }
