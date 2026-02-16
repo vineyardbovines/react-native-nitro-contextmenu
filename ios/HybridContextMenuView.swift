@@ -258,6 +258,7 @@ private class TabState {
 
     var tabs: [Tab] = []
     var selectedTabKey: String = ""
+    var preferredElementSize: String?
 
     var hasTabs: Bool { !tabs.isEmpty }
 
@@ -329,6 +330,8 @@ private enum MenuBuilder {
             tabState.selectedTabKey = first.tabKey
         }
 
+        tabState.preferredElementSize = root["preferredElementSize"] as? String
+
         return assembleMenu(
             rootTitle: root["title"] as? String ?? "",
             tabState: tabState,
@@ -379,7 +382,7 @@ private enum MenuBuilder {
                 options: .displayInline,
                 children: tabActions
             )
-            tabBarMenu.preferredElementSize = .small
+            tabBarMenu.preferredElementSize = parseElementSize(tabState.preferredElementSize)
         } else {
             tabBarMenu = UIMenu(
                 title: "",
