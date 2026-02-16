@@ -112,10 +112,11 @@ export interface ContextMenuProps {
   /** The menu structure to display on long-press. */
   menuConfig: MenuConfig;
   /**
-   * When true, a single tap triggers the menu (no preview lift).
-   * Default: false (long-press with preview).
+   * How the menu is triggered.
+   * `'tap'` — single tap shows the menu (no preview lift). Default.
+   * `'longPress'` — long-press with preview.
    */
-  showMenuOnPress?: boolean;
+  trigger?: "tap" | "longPress";
   /** Called when a menu action is selected, with the action's `actionKey`. */
   onPressAction?: (actionKey: string) => void;
   /** Called when the context menu is about to appear. */

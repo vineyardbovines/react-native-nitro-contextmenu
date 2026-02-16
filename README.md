@@ -3,8 +3,8 @@
 Native context menus for React Native, built with [Nitro Modules](https://nitro.margelo.com). Supports actions, submenus, selection state, inline groups, palettes, tabbed menus, and tap-to-trigger.
 
 <p align="center">
-  <img src="assets/ios-demo.gif" alt="iOS Demo" width="300" />
-  <img src="assets/android-demo.gif" alt="Android Demo" width="300" />
+  <img src="./assets/ios-demo.gif" alt="iOS Demo" width="300" />
+  <img src="./assets/android-demo.gif" alt="Android Demo" width="300" />
 </p>
 
 ## Installation
