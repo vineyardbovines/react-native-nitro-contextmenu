@@ -4,12 +4,21 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Calendar Versioning (CalVer)](https://calver.org/).
 
+### [2026.2.4](https://github.com/vineyardbovines/react-native-nitro-contextmenu/compare/2026.2.3...2026.2.4)
+
+### 🐛 Bug Fixes
+
+- fix: menu config callback [`6c1dbf7`](https://github.com/vineyardbovines/react-native-nitro-contextmenu/commit/6c1dbf7e8ca8208966ece9cff3484778b9210c1a)
+
 ### [2026.2.3](https://github.com/vineyardbovines/react-native-nitro-contextmenu/compare/2026.2.2...2026.2.3)
 
 ### 🐛 Bug Fixes
 
 - fix: preferred element sizing in tabbed menu [`bbf3aed`](https://github.com/vineyardbovines/react-native-nitro-contextmenu/commit/bbf3aed3a8147d8c71545c1337fb55dfd4faad55)
 
+### 🧹 Chores
+
+- chore: release 2026.2.3 [`e12acbe`](https://github.com/vineyardbovines/react-native-nitro-contextmenu/commit/e12acbe90b3560526960032ce8a06e0266af086a)
 ### [2026.2.2](https://github.com/vineyardbovines/react-native-nitro-contextmenu/compare/2026.2.1...2026.2.2)
 
 ### 🧹 Chores
