@@ -49,7 +49,13 @@ private class ContextMenuContainerView: UIView, UIContextMenuInteractionDelegate
     }
 
     var previewConfigJson: String = "{}"
-    var onPressAction: (String) -> Void = { _ in }
+    var onPressAction: (String) -> Void = { _ in } {
+        didSet {
+            if trigger == "tap" {
+                rebuildButtonMenu()
+            }
+        }
+    }
     var onMenuWillShow: () -> Void = {}
     var onMenuWillHide: () -> Void = {}
     var onPreviewPress: () -> Void = {}
