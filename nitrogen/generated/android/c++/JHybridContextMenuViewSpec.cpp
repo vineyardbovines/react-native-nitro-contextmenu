@@ -17,60 +17,54 @@
 
 namespace margelo::nitro::nitrocontextmenu {
 
-  jni::local_ref<JHybridContextMenuViewSpec::jhybriddata> JHybridContextMenuViewSpec::initHybrid(jni::alias_ref<jhybridobject> jThis) {
+  std::shared_ptr<JHybridContextMenuViewSpec> JHybridContextMenuViewSpec::JavaPart::getJHybridContextMenuViewSpec() {
+    auto hybridObject = JHybridObject::JavaPart::getJHybridObject();
+    auto castHybridObject = std::dynamic_pointer_cast<JHybridContextMenuViewSpec>(hybridObject);
+    if (castHybridObject == nullptr) [[unlikely]] {
+      throw std::runtime_error("Failed to downcast JHybridObject to JHybridContextMenuViewSpec!");
+    }
+    return castHybridObject;
+  }
+
+  jni::local_ref<JHybridContextMenuViewSpec::CxxPart::jhybriddata> JHybridContextMenuViewSpec::CxxPart::initHybrid(jni::alias_ref<jhybridobject> jThis) {
     return makeCxxInstance(jThis);
   }
 
-  void JHybridContextMenuViewSpec::registerNatives() {
-    registerHybrid({
-      makeNativeMethod("initHybrid", JHybridContextMenuViewSpec::initHybrid),
-    });
-  }
-
-  size_t JHybridContextMenuViewSpec::getExternalMemorySize() noexcept {
-    static const auto method = javaClassStatic()->getMethod<jlong()>("getMemorySize");
-    return method(_javaPart);
-  }
-
-  bool JHybridContextMenuViewSpec::equals(const std::shared_ptr<HybridObject>& other) {
-    if (auto otherCast = std::dynamic_pointer_cast<JHybridContextMenuViewSpec>(other)) {
-      return _javaPart == otherCast->_javaPart;
+  std::shared_ptr<JHybridObject> JHybridContextMenuViewSpec::CxxPart::createHybridObject(const jni::local_ref<JHybridObject::JavaPart>& javaPart) {
+    auto castJavaPart = jni::dynamic_ref_cast<JHybridContextMenuViewSpec::JavaPart>(javaPart);
+    if (castJavaPart == nullptr) [[unlikely]] {
+      throw std::runtime_error("Failed to cast JHybridObject::JavaPart to JHybridContextMenuViewSpec::JavaPart!");
     }
-    return false;
+    return std::make_shared<JHybridContextMenuViewSpec>(castJavaPart);
   }
 
-  void JHybridContextMenuViewSpec::dispose() noexcept {
-    static const auto method = javaClassStatic()->getMethod<void()>("dispose");
-    method(_javaPart);
-  }
-
-  std::string JHybridContextMenuViewSpec::toString() {
-    static const auto method = javaClassStatic()->getMethod<jni::JString()>("toString");
-    auto javaString = method(_javaPart);
-    return javaString->toStdString();
+  void JHybridContextMenuViewSpec::CxxPart::registerNatives() {
+    registerHybrid({
+      makeNativeMethod("initHybrid", JHybridContextMenuViewSpec::CxxPart::initHybrid),
+    });
   }
 
   // Properties
   std::string JHybridContextMenuViewSpec::getMenuConfigJson() {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<jni::JString>()>("getMenuConfigJson");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<jni::JString>()>("getMenuConfigJson");
     auto __result = method(_javaPart);
     return __result->toStdString();
   }
   void JHybridContextMenuViewSpec::setMenuConfigJson(const std::string& menuConfigJson) {
-    static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* menuConfigJson */)>("setMenuConfigJson");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* menuConfigJson */)>("setMenuConfigJson");
     method(_javaPart, jni::make_jstring(menuConfigJson));
   }
   std::string JHybridContextMenuViewSpec::getPreviewConfigJson() {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<jni::JString>()>("getPreviewConfigJson");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<jni::JString>()>("getPreviewConfigJson");
     auto __result = method(_javaPart);
     return __result->toStdString();
   }
   void JHybridContextMenuViewSpec::setPreviewConfigJson(const std::string& previewConfigJson) {
-    static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* previewConfigJson */)>("setPreviewConfigJson");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* previewConfigJson */)>("setPreviewConfigJson");
     method(_javaPart, jni::make_jstring(previewConfigJson));
   }
   std::function<void(const std::string& /* actionKey */)> JHybridContextMenuViewSpec::getOnPressAction() {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JFunc_void_std__string::javaobject>()>("getOnPressAction_cxx");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JFunc_void_std__string::javaobject>()>("getOnPressAction_cxx");
     auto __result = method(_javaPart);
     return [&]() -> std::function<void(const std::string& /* actionKey */)> {
       if (__result->isInstanceOf(JFunc_void_std__string_cxx::javaClassStatic())) [[likely]] {
@@ -83,11 +77,11 @@ namespace margelo::nitro::nitrocontextmenu {
     }();
   }
   void JHybridContextMenuViewSpec::setOnPressAction(const std::function<void(const std::string& /* actionKey */)>& onPressAction) {
-    static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<JFunc_void_std__string::javaobject> /* onPressAction */)>("setOnPressAction_cxx");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<void(jni::alias_ref<JFunc_void_std__string::javaobject> /* onPressAction */)>("setOnPressAction_cxx");
     method(_javaPart, JFunc_void_std__string_cxx::fromCpp(onPressAction));
   }
   std::function<void()> JHybridContextMenuViewSpec::getOnMenuWillShow() {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JFunc_void::javaobject>()>("getOnMenuWillShow_cxx");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JFunc_void::javaobject>()>("getOnMenuWillShow_cxx");
     auto __result = method(_javaPart);
     return [&]() -> std::function<void()> {
       if (__result->isInstanceOf(JFunc_void_cxx::javaClassStatic())) [[likely]] {
@@ -100,11 +94,11 @@ namespace margelo::nitro::nitrocontextmenu {
     }();
   }
   void JHybridContextMenuViewSpec::setOnMenuWillShow(const std::function<void()>& onMenuWillShow) {
-    static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<JFunc_void::javaobject> /* onMenuWillShow */)>("setOnMenuWillShow_cxx");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<void(jni::alias_ref<JFunc_void::javaobject> /* onMenuWillShow */)>("setOnMenuWillShow_cxx");
     method(_javaPart, JFunc_void_cxx::fromCpp(onMenuWillShow));
   }
   std::function<void()> JHybridContextMenuViewSpec::getOnMenuWillHide() {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JFunc_void::javaobject>()>("getOnMenuWillHide_cxx");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JFunc_void::javaobject>()>("getOnMenuWillHide_cxx");
     auto __result = method(_javaPart);
     return [&]() -> std::function<void()> {
       if (__result->isInstanceOf(JFunc_void_cxx::javaClassStatic())) [[likely]] {
@@ -117,11 +111,11 @@ namespace margelo::nitro::nitrocontextmenu {
     }();
   }
   void JHybridContextMenuViewSpec::setOnMenuWillHide(const std::function<void()>& onMenuWillHide) {
-    static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<JFunc_void::javaobject> /* onMenuWillHide */)>("setOnMenuWillHide_cxx");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<void(jni::alias_ref<JFunc_void::javaobject> /* onMenuWillHide */)>("setOnMenuWillHide_cxx");
     method(_javaPart, JFunc_void_cxx::fromCpp(onMenuWillHide));
   }
   std::function<void()> JHybridContextMenuViewSpec::getOnPreviewPress() {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JFunc_void::javaobject>()>("getOnPreviewPress_cxx");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JFunc_void::javaobject>()>("getOnPreviewPress_cxx");
     auto __result = method(_javaPart);
     return [&]() -> std::function<void()> {
       if (__result->isInstanceOf(JFunc_void_cxx::javaClassStatic())) [[likely]] {
@@ -134,7 +128,7 @@ namespace margelo::nitro::nitrocontextmenu {
     }();
   }
   void JHybridContextMenuViewSpec::setOnPreviewPress(const std::function<void()>& onPreviewPress) {
-    static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<JFunc_void::javaobject> /* onPreviewPress */)>("setOnPreviewPress_cxx");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<void(jni::alias_ref<JFunc_void::javaobject> /* onPreviewPress */)>("setOnPreviewPress_cxx");
     method(_javaPart, JFunc_void_cxx::fromCpp(onPreviewPress));
   }
 

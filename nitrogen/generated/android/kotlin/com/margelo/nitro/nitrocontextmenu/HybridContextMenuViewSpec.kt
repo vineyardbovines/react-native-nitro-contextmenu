@@ -10,6 +10,7 @@ package com.margelo.nitro.nitrocontextmenu
 import androidx.annotation.Keep
 import com.facebook.jni.HybridData
 import com.facebook.proguard.annotations.DoNotStrip
+import com.margelo.nitro.core.HybridObject
 import com.margelo.nitro.views.HybridView
 
 /**
@@ -24,23 +25,6 @@ import com.margelo.nitro.views.HybridView
   "LocalVariableName", "PropertyName", "PrivatePropertyName", "FunctionName"
 )
 abstract class HybridContextMenuViewSpec: HybridView() {
-  @DoNotStrip
-  private var mHybridData: HybridData = initHybrid()
-
-  init {
-    super.updateNative(mHybridData)
-  }
-
-  override fun updateNative(hybridData: HybridData) {
-    mHybridData = hybridData
-    super.updateNative(hybridData)
-  }
-
-  // Default implementation of `HybridObject.toString()`
-  override fun toString(): String {
-    return "[HybridObject ContextMenuView]"
-  }
-
   // Properties
   @get:DoNotStrip
   @get:Keep
@@ -113,7 +97,21 @@ abstract class HybridContextMenuViewSpec: HybridView() {
   // Methods
   
 
-  private external fun initHybrid(): HybridData
+  // Default implementation of `HybridObject.toString()`
+  override fun toString(): String {
+    return "[HybridObject ContextMenuView]"
+  }
+
+  // C++ backing class
+  @DoNotStrip
+  @Keep
+  protected open class CxxPart(javaPart: HybridContextMenuViewSpec): HybridObject.CxxPart(javaPart) {
+    // C++ JHybridContextMenuViewSpec::CxxPart::initHybrid(...)
+    external override fun initHybrid(): HybridData
+  }
+  override fun createCxxPart(): CxxPart {
+    return CxxPart(this)
+  }
 
   companion object {
     protected const val TAG = "HybridContextMenuViewSpec"

@@ -18,34 +18,33 @@ namespace margelo::nitro::nitrocontextmenu {
 
   using namespace facebook;
 
-  class JHybridContextMenuViewSpec: public jni::HybridClass<JHybridContextMenuViewSpec, JHybridObject>,
-                                    public virtual HybridContextMenuViewSpec {
+  class JHybridContextMenuViewSpec: public virtual HybridContextMenuViewSpec, public virtual JHybridObject {
   public:
-    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/nitrocontextmenu/HybridContextMenuViewSpec;";
-    static jni::local_ref<jhybriddata> initHybrid(jni::alias_ref<jhybridobject> jThis);
-    static void registerNatives();
+    struct JavaPart: public jni::JavaClass<JavaPart, JHybridObject::JavaPart> {
+      static constexpr auto kJavaDescriptor = "Lcom/margelo/nitro/nitrocontextmenu/HybridContextMenuViewSpec;";
+      std::shared_ptr<JHybridContextMenuViewSpec> getJHybridContextMenuViewSpec();
+    };
+    struct CxxPart: public jni::HybridClass<CxxPart, JHybridObject::CxxPart> {
+      static constexpr auto kJavaDescriptor = "Lcom/margelo/nitro/nitrocontextmenu/HybridContextMenuViewSpec$CxxPart;";
+      static jni::local_ref<jhybriddata> initHybrid(jni::alias_ref<jhybridobject> jThis);
+      static void registerNatives();
+      using HybridBase::HybridBase;
+    protected:
+      std::shared_ptr<JHybridObject> createHybridObject(const jni::local_ref<JHybridObject::JavaPart>& javaPart) override;
+    };
 
-  protected:
-    // C++ constructor (called from Java via `initHybrid()`)
-    explicit JHybridContextMenuViewSpec(jni::alias_ref<jhybridobject> jThis) :
+  public:
+    explicit JHybridContextMenuViewSpec(const jni::local_ref<JHybridContextMenuViewSpec::JavaPart>& javaPart):
       HybridObject(HybridContextMenuViewSpec::TAG),
-      HybridBase(jThis),
-      _javaPart(jni::make_global(jThis)) {}
-
-  public:
+      JHybridObject(javaPart),
+      _javaPart(jni::make_global(javaPart)) {}
     ~JHybridContextMenuViewSpec() override {
       // Hermes GC can destroy JS objects on a non-JNI Thread.
       jni::ThreadScope::WithClassLoader([&] { _javaPart.reset(); });
     }
 
   public:
-    size_t getExternalMemorySize() noexcept override;
-    bool equals(const std::shared_ptr<HybridObject>& other) override;
-    void dispose() noexcept override;
-    std::string toString() override;
-
-  public:
-    inline const jni::global_ref<JHybridContextMenuViewSpec::javaobject>& getJavaPart() const noexcept {
+    inline const jni::global_ref<JHybridContextMenuViewSpec::JavaPart>& getJavaPart() const noexcept {
       return _javaPart;
     }
 
@@ -69,9 +68,7 @@ namespace margelo::nitro::nitrocontextmenu {
     
 
   private:
-    friend HybridBase;
-    using HybridBase::HybridBase;
-    jni::global_ref<JHybridContextMenuViewSpec::javaobject> _javaPart;
+    jni::global_ref<JHybridContextMenuViewSpec::JavaPart> _javaPart;
   };
 
 } // namespace margelo::nitro::nitrocontextmenu

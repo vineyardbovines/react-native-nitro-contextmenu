@@ -24,27 +24,37 @@
 namespace margelo::nitro::nitrocontextmenu {
 
 int initialize(JavaVM* vm) {
+  return facebook::jni::initialize(vm, []() {
+    ::margelo::nitro::nitrocontextmenu::registerAllNatives();
+  });
+}
+
+struct JHybridContextMenuViewSpecImpl: public jni::JavaClass<JHybridContextMenuViewSpecImpl, JHybridContextMenuViewSpec::JavaPart> {
+  static constexpr auto kJavaDescriptor = "Lcom/margelo/nitro/nitrocontextmenu/HybridContextMenuView;";
+  static std::shared_ptr<JHybridContextMenuViewSpec> create() {
+    static const auto constructorFn = javaClassStatic()->getConstructor<JHybridContextMenuViewSpecImpl::javaobject()>();
+    jni::local_ref<JHybridContextMenuViewSpec::JavaPart> javaPart = javaClassStatic()->newObject(constructorFn);
+    return javaPart->getJHybridContextMenuViewSpec();
+  }
+};
+
+void registerAllNatives() {
   using namespace margelo::nitro;
   using namespace margelo::nitro::nitrocontextmenu;
-  using namespace facebook;
 
-  return facebook::jni::initialize(vm, [] {
-    // Register native JNI methods
-    margelo::nitro::nitrocontextmenu::JHybridContextMenuViewSpec::registerNatives();
-    margelo::nitro::nitrocontextmenu::JFunc_void_std__string_cxx::registerNatives();
-    margelo::nitro::nitrocontextmenu::JFunc_void_cxx::registerNatives();
-    margelo::nitro::nitrocontextmenu::views::JHybridContextMenuViewStateUpdater::registerNatives();
+  // Register native JNI methods
+  margelo::nitro::nitrocontextmenu::JHybridContextMenuViewSpec::CxxPart::registerNatives();
+  margelo::nitro::nitrocontextmenu::JFunc_void_std__string_cxx::registerNatives();
+  margelo::nitro::nitrocontextmenu::JFunc_void_cxx::registerNatives();
+  margelo::nitro::nitrocontextmenu::views::JHybridContextMenuViewStateUpdater::registerNatives();
 
-    // Register Nitro Hybrid Objects
-    HybridObjectRegistry::registerHybridObjectConstructor(
-      "ContextMenuView",
-      []() -> std::shared_ptr<HybridObject> {
-        static DefaultConstructableObject<JHybridContextMenuViewSpec::javaobject> object("com/margelo/nitro/nitrocontextmenu/HybridContextMenuView");
-        auto instance = object.create();
-        return instance->cthis()->shared();
-      }
-    );
-  });
+  // Register Nitro Hybrid Objects
+  HybridObjectRegistry::registerHybridObjectConstructor(
+    "ContextMenuView",
+    []() -> std::shared_ptr<HybridObject> {
+      return JHybridContextMenuViewSpecImpl::create();
+    }
+  );
 }
 
 } // namespace margelo::nitro::nitrocontextmenu

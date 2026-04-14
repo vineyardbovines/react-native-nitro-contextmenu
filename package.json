@@ -68,11 +68,11 @@
     "auto-changelog": "^2.5.0",
     "commitlint": "^20.4.1",
     "lefthook": "^2.1.1",
-    "nitrogen": "*",
+    "nitrogen": "^0.35.4",
     "react": "19.2.0",
     "react-native": "0.83.0",
     "react-native-builder-bob": "^0.40.18",
-    "react-native-nitro-modules": "*",
+    "react-native-nitro-modules": "^0.35.4",
     "typescript": "^5.8.3"
   },
   "peerDependencies": {

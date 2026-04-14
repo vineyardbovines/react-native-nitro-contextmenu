@@ -16,9 +16,9 @@ using namespace facebook;
 using ConcreteStateData = react::ConcreteState<HybridContextMenuViewState>;
 
 void JHybridContextMenuViewStateUpdater::updateViewProps(jni::alias_ref<jni::JClass> /* class */,
-                                           jni::alias_ref<JHybridContextMenuViewSpec::javaobject> javaView,
+                                           jni::alias_ref<JHybridContextMenuViewSpec::JavaPart> javaView,
                                            jni::alias_ref<JStateWrapper::javaobject> stateWrapperInterface) {
-  JHybridContextMenuViewSpec* view = javaView->cthis();
+  std::shared_ptr<JHybridContextMenuViewSpec> hybridView = javaView->getJHybridContextMenuViewSpec();
 
   // Get concrete StateWrapperImpl from passed StateWrapper interface object
   jobject rawStateWrapper = stateWrapperInterface.get();
@@ -38,27 +38,27 @@ void JHybridContextMenuViewStateUpdater::updateViewProps(jni::alias_ref<jni::JCl
 
   // Update all props if they are dirty
   if (props->menuConfigJson.isDirty) {
-    view->setMenuConfigJson(props->menuConfigJson.value);
+    hybridView->setMenuConfigJson(props->menuConfigJson.value);
     props->menuConfigJson.isDirty = false;
   }
   if (props->previewConfigJson.isDirty) {
-    view->setPreviewConfigJson(props->previewConfigJson.value);
+    hybridView->setPreviewConfigJson(props->previewConfigJson.value);
     props->previewConfigJson.isDirty = false;
   }
   if (props->onPressAction.isDirty) {
-    view->setOnPressAction(props->onPressAction.value);
+    hybridView->setOnPressAction(props->onPressAction.value);
     props->onPressAction.isDirty = false;
   }
   if (props->onMenuWillShow.isDirty) {
-    view->setOnMenuWillShow(props->onMenuWillShow.value);
+    hybridView->setOnMenuWillShow(props->onMenuWillShow.value);
     props->onMenuWillShow.isDirty = false;
   }
   if (props->onMenuWillHide.isDirty) {
-    view->setOnMenuWillHide(props->onMenuWillHide.value);
+    hybridView->setOnMenuWillHide(props->onMenuWillHide.value);
     props->onMenuWillHide.isDirty = false;
   }
   if (props->onPreviewPress.isDirty) {
-    view->setOnPreviewPress(props->onPreviewPress.value);
+    hybridView->setOnPreviewPress(props->onPreviewPress.value);
     props->onPreviewPress.isDirty = false;
   }
 
@@ -67,8 +67,7 @@ void JHybridContextMenuViewStateUpdater::updateViewProps(jni::alias_ref<jni::JCl
     // hybridRef changed - call it with new this
     const auto& maybeFunc = props->hybridRef.value;
     if (maybeFunc.has_value()) {
-      std::shared_ptr<JHybridContextMenuViewSpec> shared = javaView->cthis()->shared_cast<JHybridContextMenuViewSpec>();
-      maybeFunc.value()(shared);
+      maybeFunc.value()(hybridView);
     }
     props->hybridRef.isDirty = false;
   }
