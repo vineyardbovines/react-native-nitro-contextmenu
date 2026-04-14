@@ -1,6 +1,6 @@
 {
   "name": "react-native-nitro-contextmenu",
-  "version": "2026.4.1",
+  "version": "2026.4.2",
   "description": "Native context menus built with Nitro Modules",
   "main": "lib/index",
   "module": "lib/index",

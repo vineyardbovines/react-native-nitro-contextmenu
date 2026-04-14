@@ -4,12 +4,21 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Calendar Versioning (CalVer)](https://calver.org/).
 
+### [2026.4.2](https://github.com/vineyardbovines/react-native-nitro-contextmenu/compare/2026.4.1...2026.4.2)
+
+### 🐛 Bug Fixes
+
+- fix: update nitrogen [`dcf755c`](https://github.com/vineyardbovines/react-native-nitro-contextmenu/commit/dcf755cdfcb5102d6535589b23fc8d7c8ed05396)
+
 ### [2026.4.1](https://github.com/vineyardbovines/react-native-nitro-contextmenu/compare/2026.2.4...2026.4.1)
 
 ### 🐛 Bug Fixes
 
 - fix: remove hardcoded agp 9.0.0 buildscript block [`a706f77`](https://github.com/vineyardbovines/react-native-nitro-contextmenu/commit/a706f77bdca6dba3e2a19d8ecd61b55a09358597)
 
+### 🧹 Chores
+
+- chore: release 2026.4.1 [`91af4d9`](https://github.com/vineyardbovines/react-native-nitro-contextmenu/commit/91af4d9c3f020c8b9d9da28704814b04fe6f2719)
 ### [2026.2.4](https://github.com/vineyardbovines/react-native-nitro-contextmenu/compare/2026.2.3...2026.2.4)
 
 ### 🐛 Bug Fixes
